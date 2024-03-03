@@ -4,7 +4,7 @@ const path = require('path');
 
 const addProduct = async (req, res) => {
   try {
-    let { name, title, description, brand, price, offer } = req.body;
+    let { name, title, description, brand, price, offer,category } = req.body;
 
     const images = req.files.map((image) => ({
         data: fs.readFileSync("productImages/" + image.filename),
@@ -17,6 +17,7 @@ const addProduct = async (req, res) => {
       title,
       description,
       brand,
+      category,
       price,
       offer,
       images,
@@ -26,9 +27,14 @@ const addProduct = async (req, res) => {
 
     // Save the new product to the database
     const savedProduct = await newProduct.save();
-
-    console.log('Product added successfully:', savedProduct);
-    return res.status(201).json(savedProduct); // Send a JSON response with the saved product
+    for (const file of req.files) {
+      fs.unlink(file.path, (err) => {
+        if (err) {
+          console.error('Error deleting local file:', err);
+        }
+      });
+    }
+    return res.status(200).json({message:'Success'}); // Send a JSON response with the saved product
   } catch (error) {
     console.error('Error adding product:', error);
     return res.status(500).json({ error: 'Internal Server Error' });
@@ -39,6 +45,18 @@ const getAllProducts = async (req, res) => {
     try {
       const allProducts = await Products.find();
   
+      return res.status(200).json(allProducts);
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+  const getProductsByCategory = async (req, res) => {
+    try {
+        const {category} = req.body;
+      const allProducts = await Products.find({category});
+       
       return res.status(200).json(allProducts);
     } catch (error) {
       console.error('Error retrieving products:', error);
@@ -124,5 +142,6 @@ module.exports = {
   getAllProducts,
   deleteProductById,
   getProductById,
-  updateProductById
+  updateProductById,
+  getProductsByCategory
 };

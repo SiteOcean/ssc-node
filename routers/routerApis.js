@@ -32,6 +32,8 @@ webApiRouter.get('/getAllProducts', ProductSection.getAllProducts);
 webApiRouter.post('/deleteProductById', ProductSection.deleteProductById);
 webApiRouter.post('/updateProductById', upload.array('images', 5), ProductSection.updateProductById); // Specify 'images' as the field name and allow up to 5 files
 webApiRouter.post('/getProductById', ProductSection.getProductById); // Specify 'images' as the field name and allow up to 5 files
+webApiRouter.post('/getProductsByCategory', ProductSection.getProductsByCategory);
+
 
 
 module.exports = webApiRouter;
