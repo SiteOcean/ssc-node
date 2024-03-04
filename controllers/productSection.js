@@ -27,13 +27,13 @@ const addProduct = async (req, res) => {
 
     // Save the new product to the database
     const savedProduct = await newProduct.save();
-    for (const file of req.files) {
-      fs.unlink(file.path, (err) => {
-        if (err) {
-          console.error('Error deleting local file:', err);
-        }
-      });
-    }
+    // for (const file of req.files) {
+    //   fs.unlink(file.path, (err) => {
+    //     if (err) {
+    //       console.error('Error deleting local file:', err);
+    //     }
+    //   });
+    // }
     return res.status(200).json({message:'Success'}); // Send a JSON response with the saved product
   } catch (error) {
     console.error('Error adding product:', error);
