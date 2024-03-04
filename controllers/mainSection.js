@@ -15,7 +15,7 @@ const test = async(req, res, next)=>{
         const {username, password, email, mobile, designation} = req.body;
         const Trimedemail = email.replace(/\s+/g, "").toLowerCase().replace(/(?:www\.)+/g, '');
 
-          const saveImage = new Admins({username : username.trim(), password, email:Trimedemail, mobile, designation}
+          const saveImage = new Admins({username : username.trim().toLowerCase(), password, email:Trimedemail, mobile, designation}
           )
               
           const response = await saveImage.save();
@@ -36,7 +36,7 @@ const test = async(req, res, next)=>{
       const adminLogin = async (req, res) => {
         try {
           const { username, password } = req.body;
-          const trimmedUsername = username.trim(); // Trim username if needed
+          const trimmedUsername = username.trim().toLowerCase(); // Trim username if needed
       
           // Find the admin by username and password
           const admin = await Admins.findOne({ username: trimmedUsername, password });
