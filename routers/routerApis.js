@@ -35,5 +35,11 @@ webApiRouter.post('/getProductById', ProductSection.getProductById); // Specify 
 webApiRouter.post('/getProductsByCategory', ProductSection.getProductsByCategory);
 
 
+// offers section
+webApiRouter.get('/getAllOffers', ProductSection.getAllOffers);
+webApiRouter.post('/deleteOfferById', ProductSection.deleteOfferById);
+webApiRouter.post('/addOffer', upload.array('images', 5), ProductSection.addOffer); // Specify 'images' as the field name and allow up to 5 files
+webApiRouter.post('/getOfferById', ProductSection.getOfferById);
+
 
 module.exports = webApiRouter;

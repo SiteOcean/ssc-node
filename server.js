@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3030;
 
 mongoose.set('strictQuery', false);
 
-// MONGODB_URI_LOCAL
+// MONGODB_URI_LOCAL // MONGODB_URI
 mongoose.connect(process.env.MONGODB_URI)
   
 
