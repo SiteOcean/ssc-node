@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const Offers = require('../models/offerSchema');
+
 const addProduct = async (req, res) => {
   try {
     let { name, title, description, brand, price, offer,category } = req.body;

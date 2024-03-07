@@ -13,9 +13,11 @@ const test = async(req, res, next)=>{
         try {       
          
         const {username, password, email, mobile, designation} = req.body;
+        const formattedUsername = username.toLowerCase().replace(/\s/g, '');
+        const formattedPassword = password.replace(/\s/g, '');
         const Trimedemail = email.replace(/\s+/g, "").toLowerCase().replace(/(?:www\.)+/g, '');
 
-          const saveImage = new Admins({username : username.trim().toLowerCase(), password, email:Trimedemail, mobile, designation}
+          const saveImage = new Admins({username : formattedUsername, password : formattedPassword, email:Trimedemail, mobile, designation}
           )
               
           const response = await saveImage.save();
